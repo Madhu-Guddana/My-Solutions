@@ -10,11 +10,23 @@
 # 2. https://practice.geeksforgeeks.org/problems/find-the-number-of-islands
 
 
+# Solution:
+# Solution is using DFS.
+# Given an array
+# [1,0,0,1]
+# [1,1,0,1]
+# [0,0,1,0]
+# [1,0,0,0]
+# Go dept first search, mark everything that is visited,
+# Maintain a count and you will arrive at answer.
+
 import sys
 
 def island_size(arr, i, j):
   if not(0 <= i < len(arr) and 0<= j < len(arr[0])):
     return 0
+  
+  # -1 indicates, node been visited.
   if arr[i][j] ==0 or arr[i][j] == -1:
     return 0
 
