@@ -27,9 +27,9 @@ def max_rect_sum(arr):
     return 0
   max_sum = arr[0][0]
   l = r = t = d = 0 # left right top down
-  for i in range(len(arr)):
+  for i in range(len(arr)): # Consider each row, check if max_array start from here.
     temp_arr = [0]*len(arr[0])
-    for j in range(i, len(arr)):
+    for j in range(i, len(arr)): # Find max_arr possible with i as starting index.
       temp_arr = [temp_arr[k]+ arr[j][k] for k in range(len(arr[j]))]
       temp_sum, left, right = kadane(temp_arr)
       if temp_sum > max_sum:
