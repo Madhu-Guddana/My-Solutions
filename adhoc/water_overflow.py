@@ -13,13 +13,19 @@
 # https://www.geeksforgeeks.org/find-water-in-a-glass/
 
 # Explanation:
-# http://www.ritambhara.in/water-overflowing-from-glass-arranged-in-form-of-triangle/
+# Source: http://www.ritambhara.in/water-overflowing-from-glass-arranged-in-form-of-triangle/
+# Consider row starts with number 1,
+# At each row i there will i number of glasses, so 2 dimension matrix can be used to represent this structure easily.
+# Solution is via recursive.
+# I put all the K liter in First glass(i=0, j=0), the excess water it will give to (i=1,j=0 and i=1,j=1)
+# We can use recursive code, and base condition is where K becomes 0.
 
 def fill_water(G, i, j, K):
   if K==0:
     return
-  capacity = 1-G[i][j]
-  available_water = capacity if capacity<K else K
+  # 1 is the capacity of the glass, G[i][j] might have some amount of water, filled in the recursive process during some other iteration.
+  capacity = 1-G[i][j] 
+  available_water = capacity if capacity<K else K # Available water may not be upto capacity, so this condition.
   G[i][j] += available_water
   K -= available_water
   fill_water(G,i+1,j,K/2.0)
