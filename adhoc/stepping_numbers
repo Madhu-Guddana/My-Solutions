@@ -1,11 +1,18 @@
 # A number is called stepping number if all adjacent digits have an absolute
-# difference of 1, e.g. '321' is a Stepping Number while 421 is not.
+# difference of 1, e.g. '321', '323' is a Stepping Number while 421 is not.
 # Given two integers n and m, find the count of all the stepping
 # numbers in range [n, m].
 
 # Algorithm: using DFS.
 # Explanation:
-# https://www.careercup.com/question?id=5693006426406912
+# Source: https://www.careercup.com/question?id=5693006426406912
+# l_size, h_size = no. of digits in low and high resp.
+# We reproduce all the stepping number between digits l_size and h_size, we disgard any number if it is out of range.
+# Following is the way to reproduce
+# First number (MSB) can be 1 to 9.
+# To the partially constructed number so far, we will append next digit(LSB) once by last_digit+1 and other time last_digit-1
+# (corner case) If last_digit was 9 or 0, then only 8 or 1 (resp) can be append.
+# We follow above recursively, till we reach the required length of number.
 
 
 import math
