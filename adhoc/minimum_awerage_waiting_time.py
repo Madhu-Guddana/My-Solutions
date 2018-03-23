@@ -8,6 +8,11 @@
 # Solution:
 # Non-premptive shortest job first is the solution.
 
+# Implementation
+# We need to use min heap for this
+# Heap will contain only those items that are available at cur point of time.
+# After completion of each pizza, we will update the pool to cur time.
+
 import heapq
 
 
