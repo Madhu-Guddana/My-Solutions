@@ -1,31 +1,32 @@
-Question:
-Given a 2D array, find the maximum sum subarray in it
-Source: 
-1) https://practice.geeksforgeeks.org/problems/maximum-sum-rectangle/0
-2) https://www.youtube.com/watch?v=yCQN096CwWM
-3) https://www.hackerrank.com/contests/pscg-coding-contest-march-2016/challenges/maximum-sub-matrix
+# Question:
+# Given a 2D array, find the maximum sum subarray in it
+# Source: 
+# 1) https://practice.geeksforgeeks.org/problems/maximum-sum-rectangle/0
+# 2) https://www.youtube.com/watch?v=yCQN096CwWM
+# 3) https://www.hackerrank.com/contests/pscg-coding-contest-march-2016/challenges/maximum-sub-matrix
 
 def kadane(arr):
-  prev_low = low = high = temp_max = 0
+  low = temp_low = high = temp_max = 0
   max_sofar = arr[0] if arr else 0
   for i in range(len(arr)):
     temp_max = temp_max+arr[i]
 
     if max_sofar < temp_max:
-      high = i
-      prev_low = low
       max_sofar = temp_max
+      high = i
+      low = temp_low
+      
 
     if temp_max < 0:
       temp_max=0
-      low = i+1
-  return (max_sofar, prev_low, high)
+      temp_low = i+1
+  return (max_sofar, low, high)
 
 def max_rect_sum(arr):
   if not arr or not arr[0]:
     return 0
   max_sum = arr[0][0]
-  l = r = t = d = 0
+  l = r = t = d = 0 # left right top down
   for i in range(len(arr)):
     temp_arr = [0]*len(arr[0])
     for j in range(i, len(arr)):
