@@ -11,21 +11,33 @@
 
 arr = [11,2,3,9,5,6,8]
 arr.sort()
-dp = {}
+
+# DP gives, the cummulative profit gained, if we select a village. 
+# key is face profit value of village, value is cummulative value
+# Eg: [1,2,3,4,5,6] 
+# if you visit 1, you can visit 1->2->4 or 1->3->6. so dp[1] = max(1+2+4, 1+3+6)
+dp = {} # Dict, since search time is 0.
+
+# Visting each village, will atlease give its face value as profit.
 for profit in arr:
   dp[profit]=profit
 max_num = arr[-1]
+
+# Maximum face value of profit.
 u_limit = 100000
 
+# Going from max profit.
 for item in reversed(arr):
   profits = [item]
-  for i in range(2,u_limit):
+  for i in range(2,u_limit): # check with all multiples of item.
     place = item * i
     if place > max_num:
       break
-    profit = item + dp.get(place,0)
+    # The reason to come from max element is that, dp will have info, 
+    # each element traversed so far will tell what max profit a village can give, if he visit this village and go further.
+    profit = item + dp.get(place,0) 
     profits.append(profit)
-  dp[item] = max(profits)
+  dp[item] = max(profits) # Max value of all alternative available.
 
 print dp
 print max(dp.values())
