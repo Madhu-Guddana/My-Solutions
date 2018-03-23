@@ -2,8 +2,10 @@
 # Given a square chessboard of N x N size, the position of Knight and position of a target is given.
 # We need to find out minimum steps a Knight will take to reach the target position.
 
-Source: https://practice.geeksforgeeks.org/problems/steps-by-knight/0
 
+# Source: https://practice.geeksforgeeks.org/problems/steps-by-knight/0
+# Soultion(Bruet Force): Fill the matrix with number that represents minimum hop required to reach the cell.
+# Then print the target cell.
 def is_valid(mat, ele):
   N = len(mat)-1
   i = ele[0]
@@ -15,14 +17,10 @@ def is_valid(mat, ele):
 def get_neighbours(mat, subject):
   i = subject[0]
   j = subject[1]
-  neigh = [(i-2, j-1),
-           (i-2, j+1),
-           (i-1, j-2),
-           (i-1, j+2),
-           (i+1, j-2),
-           (i+1, j+2),
-           (i+2, j-1),
-           (i+2, j+1)]
+  neigh = [     (i-2, j-1),         (i-2, j+1),
+           (i-1, j-2),                   (i-1, j+2),
+           (i+1, j-2),                   (i+1, j+2),
+                (i+2, j-1),         (i+2, j+1)]
   neigh = [ele for ele in  neigh if is_valid(mat, ele)]
   return neigh
 
@@ -32,22 +30,24 @@ def print_mat(mat):
   print "-"*80
 
 def fill_matrix(mat, source):
-  mat[source[0]][source[1]] = '*'
+  # Fill all cells in the matrix with number, which represents, number of hop required for knight to reach dest.
+  mat[source[0]][source[1]] = '+' # 0 represents empty cell, so made it as +
   queue = [source]
-  queue.append('*')
+  queue.append('*') # A marker for each iteration.
   count = 0
   while queue:
     subject = queue.pop(0)
     if subject == '*':
       count+=1
       queue.append('*')
-      if len(set(queue)) == 1:
+      if len(set(queue)) == 1: # Case where queue has only stars.
         break
       continue
     neigh = get_neighbours(mat, subject)
     for ele in neigh:
       mat[ele[0]][ele[1]] = count+1
       queue.append(ele)
+  mat[source[0]][source[1]] = 0
 
 for T in range(int(raw_input())):
   N = int(raw_input())
@@ -65,6 +65,6 @@ for T in range(int(raw_input())):
   target = (int(target[0])-1, int(target[1])-1)
 
   fill_matrix(mat, source)
-  mat[source[0]][source[1]] = 0
+  
   
   print (mat[target[0]][target[1]])
